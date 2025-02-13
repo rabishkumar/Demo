@@ -13,4 +13,4 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
           chmod 600 private_key
-          scp -i private_key -r * sunlightsolar12@gmail.com@tech4earth.co.in:/home/youruser/public_html/
+          scp -i private_key -r * sunlightsolar12@gmail.com@tech4earth.co.in:/home/sunlightsolar12@gmail.com/public_html/
