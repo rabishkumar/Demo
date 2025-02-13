@@ -1,0 +1,16 @@
+name: Deploy to GoDaddy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy via SCP
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          scp -i private_key -r * sunlightsolar12@gmail.com@tech4earth.co.in:/home/youruser/public_html/
