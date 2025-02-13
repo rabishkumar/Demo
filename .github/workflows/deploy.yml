@@ -12,9 +12,10 @@ jobs:
       - name: Add GoDaddy to known hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan tech4earth.co.in >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-   
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H tech4earth.co.in >> ~/.ssh/known_hosts
+          
       - name: Deploy via SCP
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
