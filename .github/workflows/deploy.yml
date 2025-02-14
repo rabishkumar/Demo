@@ -21,4 +21,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./  # Change if needed
-          server-dir: /public_html  # Change to your hosting path
+          server-dir: /public_html/  # Change to your hosting path
