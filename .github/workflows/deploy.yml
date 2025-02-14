@@ -1,23 +1,24 @@
 name: Deploy to GoDaddy
+
 on:
   push:
     branches:
-      - master
+      - master  # Change if you use another branch
+
 jobs:
   deploy:
+    name: FTP Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Add GoDaddy to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H tech4earth.co.in >> ~/.ssh/known_hosts
-          
-      - name: Deploy via SCP
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
-          chmod 600 private_key
-          scp -i private_key -r * sovfcxpn4m42@tech4earth.co.in:/home/sovfcxpn4m42/public_html/
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./  # Change if needed
+          server-dir: /public_html/  # Change to your hosting path
